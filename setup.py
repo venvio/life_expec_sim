@@ -21,51 +21,48 @@ t_max = 2
 round_count = 100
 
 #amount of offspring from reproduction
-offspring = 1
+offspring = random.randint(1,3)
 
 #chance of death at time t
-class D:
+class Death:
+
+    def __init__(self):
+        pass
 
     #percent chance of death at age 0
     d_born = 10
     d_death = 100
 
-    def __init__(self):
-        pass
 
     def __call__(self, age, lmax):
         return self.death_chance(age, lmax)
 
     @staticmethod
     def death_chance(age, lmax):
-        
-        #death = 4*D.d*((age/lmax - 1/2)**2)
+        #death = 4*Death.d*((age/lmax - 1/2)**2)
         #make linear
-        m = (D.d_death - D.d_born)/(lmax)
-        death = m*age+D.d_born
+        m = (Death.d_death - Death.d_born)/(lmax)
+        chance = m*age+Death.d_born
         #round to int
-        death = round(death)
+        chance = round(chance)
         
-        return death
+        return chance
     
     @staticmethod
     def isDead(age, lmax):
-        #calculate random num 0-100
+        # calculate random num 0-100
         rand = random.randint(0, 100)
-        #calculate chance of death
-        d_chance = D.death_chance(age, lmax)
-        #if num is higher than chance of death
+        # calculate chance of death
+        d_chance = Death.death_chance(age, lmax)
+        # if num is higher than chance of death
         if (rand > d_chance):
-            #baby survives
+            # baby survives
             return False
-        #else
         else:
-            #dead
             return True
 
-#animal object
+# animal object
 class Animal:
-    
     initPopEstablished = False
     
     def __init__(self, p1:int=initial_expec, p2:int=initial_expec):
@@ -133,7 +130,7 @@ def getAvgAge(population:List[Animal]):
 
 #test
 if __name__ == "__main__":
-    d = D()
+    d = Death()
     
     print(d(25, 100))
 

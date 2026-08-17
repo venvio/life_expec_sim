@@ -34,13 +34,13 @@ print("--------------------------------------")
 print("SIMULATION STARTING WITH...")
 print("--------------------------------------")
 print(f"Intial Population:              {initial_pop}")
-print(f"Number of rounds:               {round_count}")
+print(f"Number of years:                {round_count}")
 print(f"Intial Life Expectancy:         {setup.initial_expec}")
 print(f"Intial Mutation Coeff:          {setup.initial_mut}")
 print(f"Max years gained from Mutation: {setup.t_max}")
 print(f"Offspring per Pregnancy:        {setup.offspring}")
-print(f"Chance of death at birth:       {setup.D.d_born}%")
-print(f"Chance of death at max age:     {setup.D.d_death}%")
+print(f"Chance of death at birth:       {setup.Death.d_born}%")
+print(f"Chance of death at max age:     {setup.Death.d_death}%")
 print(f"Chance of death modeled:        linear")
 print("--------------------------------------")
 
@@ -65,7 +65,7 @@ for year in range(1,round_count+1):
         #increase age by one
         pop[i].incr_age()
         #check if dead
-        if(D.isDead(pop[i].age, pop[i].life_expec)):
+        if(Death.isDead(pop[i].age, pop[i].life_expec)):
             #kill animal
             pop.pop(i)
             i -= 1
